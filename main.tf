@@ -10,3 +10,17 @@ resource "aws_instance" "example" {
     Name = "ExampleInstance"
   }
 }
+
+resource "aws_vpc" "default" {
+  id = "vpc-" # Replace with your default VPC ID
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1f0"  # Change this to your desired AMI ID
+  instance_type = "t2.micro"
+  subnet_id     = "subnet-" # Replace with a subnet from the default VPC
+
+  tags = {
+    Name = "ExampleInstance"
+  }
+}
