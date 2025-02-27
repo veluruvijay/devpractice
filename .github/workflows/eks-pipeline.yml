@@ -36,11 +36,11 @@ jobs:
           terraform_version: 1.0.0
 
       - name: Terraform Init
-        working-directory: ./src
+        working-directory: ./terraform
         run: terraform init
 
       - name: Terraform Apply
-        working-directory: ./src
+        working-directory: ./terraform
         run: terraform apply -auto-approve
 
       - name: Configure kubectl
@@ -48,7 +48,7 @@ jobs:
           aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
 
       - name: Deploy to Kubernetes
-        working-directory: ./src/eks-manifest
+        working-directory: ./terraform/eks-manifest
         run: |
           kubectl apply -f key-management-deployment.yaml
           kubectl apply -f key-management-service.yaml
